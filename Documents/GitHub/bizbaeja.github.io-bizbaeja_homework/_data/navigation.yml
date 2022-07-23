@@ -1,0 +1,14 @@
+- title: 코드스테이츠_log
+  url: /about/
+- title: TIL
+  url: /til/
+- title: Resource
+  url: /resource/
+- title: Tags
+  url: /tags/
+- title: More
+  sublinks:
+    - title: FAQ
+      url: /faq/
+    - title: Docs
+      url: /docs/
