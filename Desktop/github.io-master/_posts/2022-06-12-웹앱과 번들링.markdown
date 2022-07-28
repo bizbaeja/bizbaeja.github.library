@@ -1,0 +1,146 @@
+---
+layout: post
+title:  "웹앱_번들링"
+date:   2022-06-12 16:51:34 +0900
+categories: jekyll update
+---
+### **빌드와 번들링**
+
+* 빌드 :개발이 완료된 앱을 배포하기 위해 하나의 폴더(directory)로 구성하여  준비하는 작업으로,
+ React 앱을 기준으로 설명을 하면, npm run build를 실행하면 React build 작업이 진행되고, index.html 파일에 압축되어 배포에 최적화된 상태를 제공해 줍니다.
+
+* 번들링 : 파일을 묶는 작업 그 자체를 말하며 파일은 의존적 관계에 있는 파일들(import, export) 그 자체 혹은 내부적으로 포함 되어 있는 모듈을 의미합니다. 정확히 말하면 모듈 간의 의존성 관계를 파악해 그룹화 하는 작업이라고 볼 수 있습니다
+
+- target
+    
+    ```jsx
+    module.exports = {
+      target: ["web", "es5"],
+    };
+    ```
+    
+- entry
+    
+    ```
+    //기본 값
+    module.exports = {
+    	...
+      entry: "./src/index.js",
+    };
+    
+    //지정 값
+    module.exports = {
+    	...
+      entry: "./src/script.js",
+    };
+    ```
+    
+    Entry 속성은 Entry point라고도 하며, webpack이 내부의 디펜던시 그래프를 생성하기 위해 사용해야 하는 모듈입니다. Webpack은 이 Entry point를 기반으로 직간접적으로 의존하는 다른 모듈과 라이브러리를 찾아낼 수 있습니다.
+    
+    기본 값은 **./src/index.js**
+    이지만 webpack 설정에서 이런 식으로 Entry 속성을 설정하여 다른 (또는 여러 entry point)를 지정할 수 있습니다.
+    
+- output
+    
+    ```jsx
+    const path = require('path');
+    
+    module.exports = {
+    	...
+      output: {
+        path: path.resolve(__dirname, "docs"), // 절대 경로로 설정을 해야 합니다. 
+        filename: "app.bundle.js",
+        clean: true
+      },
+    };
+    ```
+    
+    기본 출력 파일의 경우에는 **./dist/main.js**
+    로 , 생성된 기타 파일의 경우에는 **./dist**
+     폴더로 설정됩니다. 위의 예제에서는 `output.filename`
+    과 `output.path`
+     속성을 사용하여 webpack에 번들의 이름과 내보낼 위치를 알려주고 있습니다. `path`
+     속성을 사용할 때는 path 모듈을 사용해야만 합니다.
+    
+- loader
+    
+    ```jsx
+    module.exports = {
+    	...
+      module: {
+        rules: [
+          {
+            test: /\.css$/,
+            use: [MiniCssExtractPlugin.loader, "css-loader"],
+            exclude: /node_modules/,
+          },
+        ],
+      },
+    };
+    ```
+    
+    상위 수준에서 loader는 webpack 설정에 몇 가지 속성을 가집니다.
+    
+    - **`test`**: 변환이 필요한 파일들을 식별하기 위한 속성
+    - **`use`**: 변환을 수행하는데 사용되는 로더를 가리키는 속성
+    - **`exclude`**: 바벨로 컴파일하지 않을 파일이나 폴더를 지정. (반대로 `include` 속성을 이용해 반드시 컴파일해야 할 파일이나 폴더 지정 가능)
+    
+    여기서 `test`와 `use` 속성은 필수 속성입니다. 이런 속성을 넣어 규칙을 정하기 위해서는 `module.rules` 아래에 정의해야 합니다. 그저 `rules` 아래에 정의하면 webpack은 경고를 하게 됩니다.
+    
+- plugins
+    
+    ```jsx
+    const webpack = require('webpack');
+    const HtmlWebpackPlugin = require("html-webpack-plugin");
+    const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+    
+    module.exports = {
+      ...
+      plugins: [
+        new HtmlWebpackPlugin({
+          template: path.resolve(__dirname, "src", "index.html"),
+        }),
+        new MiniCssExtractPlugin(),
+      ],
+    };
+    ```
+    
+    플러그인을 사용하기 위해서는 `require()`를 통해 플러그인을 먼저 요청해야 합니다. 그리고 plugins 배열에 사용하고자 하는 플러그인을 추가해야 합니다. 대부분의 플러그인은 사용자가 옵션을 통해 지정할 수 있습니다. 다른 목적으로 플러그인을 여러 번 사용하도록 설정할 수 있기 때문에 `new` 연산자를 사용해 호출하여 플러그인의 인스턴스를 만들어줘야 합니다.
+    
+    위의 예제에서 `html-webpack-plugin` 은 생성된 모든 번들을 자동으로 삽입하여 애플리케이션용 HTML 파일을 생성해줍니다. `mini-css-extract-plugin`은 CSS를 별도의 파일로 추출해 CSS를 포함하는 JS 파일 당 CSS 파일을 작성해주게끔 지원합니다.
+    
+- optimization
+    
+    ```jsx
+    module.exports = {
+      ...
+      optimization: {
+        minimizer: [
+          new CssMinimizerPlugin(),
+        ]
+      }
+    };
+    ```
+    
+    <!-- 최적화하기 위해 다양한 옵션이 지원이 되는데, 대표적으로 `minimize`와 `minimizer` 등을 사용합니다.
+    
+    - minimize : `TerserPlugin` 또는 `optimization.minimize`에 명시된 plugins로 bundle 파일을 최소화(=압축)시키는 작업 여부를 결정
+    - minimizer : `defualt minimizer`을 커스텀된 `TerserPlugin` 인스턴스를 제공해서 재정의할 수 있습니다.
+    
+    위의 예제에서는 `mini-css-extract-plugin` 에 관련된 번들을 최소화하도록 지시하고 있습니다.
+ -->
+
+
+<!-- {% highlight ruby %}
+def print_hi(name)
+  puts "Hi, #{name}"
+end
+print_hi('Tom')
+#=> prints 'Hi, Tom' to STDOUT.
+{% endhighlight %}
+
+Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+
+[jekyll-docs]: https://jekyllrb.com/docs/home
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-talk]: https://talk.jekyllrb.com/ -->

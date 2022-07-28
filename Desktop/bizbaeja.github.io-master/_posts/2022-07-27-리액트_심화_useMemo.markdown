@@ -1,0 +1,76 @@
+---
+layout: post
+title:  "useMemo"
+categories: jekyll update
+---
+
+<aside>
+💡 기능의 주요 목적  : “불필요한 재렌더링을 피하여 최적화하기 위함”
+래핑 대상을 선택할 때 : 모든 자식 컴포넌트 대상을 삼는 것보다 컴포넌트 트리에서 잘라낼 수 있는 몇가지 주요 컴포넌트 부분을 선택
+
+</aside>
+
+react.memo는, 함수형 컴포넌트를 대상, 
+
+인자로 들어간 컴포넌트에 어떤 props가  입력되는지 확인한 뒤 
+
+이를 기존의 props 값과 비교하도록 리액트에게 전달
+
+ 그리고 props의 값이 바뀐 경우에만  컴포넌트를 재실행 및 재평가
+
+```jsx
+
+//  요구사항 :  (두가지 기능이 리액트에게 요구된다. 리액트는 많은 비용을 지불!)
+//  1. 기존의  props 값을 저장할 공간이 필요
+//  2. 비교하는 성능 필요
+
+export default function App() {
+  const [name, setName] = useState("");
+  const [val1, setVal1] = useState(0);
+  const [val2, setVal2] = useState(0);
+  const answer = add(val1, val2);
+
+  return (
+    <div>
+      <input
+        className="name-input"
+        placeholder="이름을 입력해주세요"
+        value={name}
+        type="text"
+        onChange={(e) => setName(e.target.value)}
+      />
+      <input
+        className="value-input"
+        placeholder="숫자를 입력해주세요"
+        value={name}
+        // 내가 생각한 해답
+        // value={setVal2(e.target.value)}
+        type="number"
+        onChange={(e) => setVal1(e.target.value)}
+      />
+      <input
+        className="value-input"
+        placeholder="숫자를 입력해주세요"
+        value={val2}
+        type="number"
+        onChange={(e) => setVal2(e.target.value)}
+      />
+      <div>{answer}</div>
+    </div>
+  );
+}
+```
+
+컴포넌트를 재평가하는데 필요한 성능비용과 props를 비교하는 성능 비용을 맞바꾸다!
+ props의  개수와 컴포넌트의 복잡도, 그리고 자식 컴포넌트의 숫자에 따라 달라진다.
+
+유리한 경우 
+
+- 자식 컴포넌트가 많아서 컴포넌트 트리가 매우 큰 경우
+- 컴포넌트 트리의 상위에 위치해있어서 전체 컴포넌트 트리에 대한 쓸데없는 재렌더링을 막을 수 있는 위치에 있는 경우
+
+불리한 경우 
+
+- 부모 컴포넌트를 매번 재평가할때마다 컴포넌트의 변화나 props의 값이 변화할 수 있는경우
+    
+    ---
