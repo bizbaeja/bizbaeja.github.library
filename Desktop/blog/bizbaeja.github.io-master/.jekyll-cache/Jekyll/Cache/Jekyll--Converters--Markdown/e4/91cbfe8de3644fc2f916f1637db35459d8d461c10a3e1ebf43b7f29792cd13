@@ -1,0 +1,115 @@
+I"�"<h3 id="필요성--reacjs-앱에서-페이지를-전환해야할-필요가-있음">필요성 : Reac.js 앱에서 페이지를 전환해야할 필요가 있음</h3>
+
+<p>(WANTS)모든게 스크린에서 동작하기보다 링크를 누르면 해당 페이지로 들어갔으면 좋겠다</p>
+
+<ol>
+  <li>Movie 라는 component 를 이용한다. (Movie.js === function  Movie() 함수를 페이지화 시킨 것, 고로 export,import 해줘야 함.)</li>
+  <li>코드 정리</li>
+  <li>div 와 url 을 어떻게 정리할 것인가?
+    <ul>
+      <li>key(={movie.}가 필요하지 않기 때문에 지워준다. why?? movie가 App..js로부터 받을 예정인 정보이기 때문.  → 그럼 그 정보는 어떻게 받는데 ??? 바로 ‘props’로!!</li>
+      <li>Movie component는 이 속성들을 다 부모 component로부터 받아온다.</li>
+    </ul>
+  </li>
+</ol>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Movie</span><span class="p">({</span><span class="nx">coverImg</span><span class="p">,</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">summary</span><span class="p">,</span> <span class="nx">genres</span><span class="p">})</span>
+		<span class="k">return</span> <span class="p">(</span>
+				<span class="p">&lt;</span><span class="nt">div</span> <span class="na">key</span><span class="p">=</span><span class="si">{</span><span class="nx">id</span><span class="si">}</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="p">=</span><span class="si">{</span><span class="nx">coverImg</span><span class="si">}</span> <span class="p">/&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">title</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">summary</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+                      <span class="si">{</span><span class="nx">genres</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">g</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
+                        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">key</span><span class="p">=</span><span class="si">{</span><span class="nx">g</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">g</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                      <span class="p">))</span><span class="si">}</span>
+                    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+                  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+		<span class="p">)</span>
+		<span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    
+</code></pre></div></div>
+
+<hr />
+
+<p>(1 )Movie를 render해주다.   <code class="language-plaintext highlighter-rouge">{movies.map((movie) =&gt;(</code></p>
+
+<p>(2) movie를 import 하다 <code class="language-plaintext highlighter-rouge">(= &lt;Movie /&gt;)</code></p>
+
+<p>(3) Movie component에 속성을 보내주다.<code class="language-plaintext highlighter-rouge">&lt;movie coverImg={movie.medium-cover_image}</code></p>
+
+<p>(4) title과 summary 속성도 추가해준다. <code class="language-plaintext highlighter-rouge">title={movie.title} summary={movie.summary} genres={movie.genres)</code></p>
+
+<p>(5) 모든 img element 는 alt 속성을 가지기 때문에 꼭 추가해준다</p>
+
+<p>(6) key=id 값으로  render 해주기 때문에 넣어준다</p>
+
+<p>(7) PropTypes from “prop-types” import 해준다.</p>
+
+<p>(8) Movie component의 PropsTypes   를 설정해준다.</p>
+
+<hr />
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">import</span> <span class="nx">PropTypes</span> <span class="k">from</span> <span class="err">“</span><span class="nx">prop</span><span class="o">-</span><span class="nx">types</span><span class="err">”</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">Movie</span><span class="p">({</span><span class="nx">coverImg</span><span class="p">,</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">summary</span><span class="p">,</span> <span class="nx">genres</span><span class="p">})</span>
+		<span class="k">return</span> <span class="p">(</span>
+				<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+					<span class="si">{</span><span class="nx">movies</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">movie</span><span class="p">)</span> <span class="o">=&gt;</span><span class="p">(</span>
+           <span class="p">&lt;</span> <span class="na">Movie</span>
+							<span class="na">key</span><span class="p">=</span><span class="si">{</span><span class="nx">movie</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span>
+							<span class="na">coverImg</span><span class="p">=</span><span class="si">{</span><span class="nx">movie</span><span class="p">.</span><span class="nx">medium_cover_image</span><span class="si">}</span>
+							<span class="na">title</span><span class="p">=</span><span class="si">{</span><span class="nx">movie</span><span class="p">.</span><span class="nx">title</span><span class="si">}</span>
+							<span class="na">summary</span><span class="p">=</span><span class="si">{</span><span class="nx">movie</span><span class="p">.</span><span class="nx">summary</span><span class="si">}</span>
+							<span class="na">genres</span><span class="p">=</span><span class="si">{</span><span class="nx">movie</span><span class="p">.</span><span class="nx">genres</span><span class="si">}</span>
+						<span class="p">/&gt;</span>
+			
+		<span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+ 
+	<span class="p">)</span>
+<span class="p">)</span><span class="si">}</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="nx">Movie</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="na">coverImg</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
+	<span class="na">title</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
+	<span class="na">summary</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
+	<span class="na">genres</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">arrayOf</span><span class="p">(</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">).</span><span class="nx">isRequired</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Movie</span><span class="p">;</span>
+
+</code></pre></div></div>
+
+<hr />
+
+<div><p>니꼬는 다음에는 우리가 로컬호스트 현주소에서 /id 가 붙은 주소로 갈 궁리를 하고 있다. 
+
+그 방법에 대해서 알아보자고 했다.
+
+그건  React.router 라는것으로 할 수 있고
+
+터미널에서 npm install react-router-dom 을 해야만 할 수있다고 했다.
+
+웹앱을 만들때는 스크린 단위(route 단위)로 생각해야 한다.</p></div>
+
+<p>home route - all movies</p>
+
+<p>movie route - one movie</p>
+
+<hr />
+
+<p>/src  — /routes - Home.js // Routersms url을 보고 있는 component다.</p>
+
+<table>
+  <tbody>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+
+<p>— /components - Movie.js</p>
+
+<p>— App.js //이제  App.js 는 영화를 보여주는게 아니라. router를 render만 한다.</p>
+
+<p>— index.js</p>
+:ET

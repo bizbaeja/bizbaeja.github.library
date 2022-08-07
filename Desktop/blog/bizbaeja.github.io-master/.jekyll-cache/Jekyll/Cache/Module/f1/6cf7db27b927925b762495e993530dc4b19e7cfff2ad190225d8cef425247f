@@ -1,0 +1,63 @@
+I"�
+
+
+
+
+
+<article id="post- Movie 컴포넌트 만들기" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title flip-project-title">
+      <a href="/2022-07-04-Movie-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/" class="flip-title">
+        컴포넌트 (state _props)
+      </a>
+    </h1>
+
+    <div class="post-date">
+      
+      <span class="ellipsis mr1">
+        <time datetime="2022-07-04T00:00:00+09:00">04 Jul 2022</time>  
+      </span>
+      
+        
+          
+          
+          
+            
+            
+            <span class="ellipsis" data-tippy-content="Last modified at: 04 Aug 2022">
+              <span class="sr-only">Last modified at:</span>
+              <span class="icon-history"></span>
+              <time datetime="2022-08-04T15:41:35+09:00">2022-08-04</time>
+            </span>
+          
+        
+      
+    </div>
+
+    
+    
+
+    
+
+
+
+  <div class="hr pb0"></div>
+
+
+  </header>
+
+  
+    <h3 id="필요성--reacjs-앱에서-페이지를-전환해야할-필요가-있음">필요성 : Reac.js 앱에서 페이지를 전환해야할 필요가 있음</h3>
+
+
+    
+    
+    <footer>
+      <p class="read-more">
+        Continue reading <a class="heading flip-title" href="/2022-07-04-Movie-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">컴포넌트 (state _props)</a>
+
+      </p>
+    </footer>
+  
+</article>
+:ET

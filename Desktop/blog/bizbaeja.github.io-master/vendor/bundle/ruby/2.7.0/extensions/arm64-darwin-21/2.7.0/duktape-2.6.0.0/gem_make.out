@@ -1,0 +1,17 @@
+current directory: /Users/aeong/Desktop/blog/bizbaeja.github.com/vendor/bundle/ruby/2.7.0/gems/duktape-2.6.0.0/ext/duktape
+/Users/aeong/.rbenv/versions/2.7.6/bin/ruby -I /Users/aeong/.rbenv/versions/2.7.6/lib/ruby/2.7.0 -r ./siteconf20220804-92167-21t4mt.rb extconf.rb
+checking for rb_sym2str()... yes
+creating Makefile
+
+current directory: /Users/aeong/Desktop/blog/bizbaeja.github.com/vendor/bundle/ruby/2.7.0/gems/duktape-2.6.0.0/ext/duktape
+make "DESTDIR=" clean
+
+current directory: /Users/aeong/Desktop/blog/bizbaeja.github.com/vendor/bundle/ruby/2.7.0/gems/duktape-2.6.0.0/ext/duktape
+make "DESTDIR="
+compiling duktape.c
+compiling duktape_ext.c
+linking shared-object duktape_ext.bundle
+
+current directory: /Users/aeong/Desktop/blog/bizbaeja.github.com/vendor/bundle/ruby/2.7.0/gems/duktape-2.6.0.0/ext/duktape
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 duktape_ext.bundle ./.gem.20220804-92167-wxnrd4

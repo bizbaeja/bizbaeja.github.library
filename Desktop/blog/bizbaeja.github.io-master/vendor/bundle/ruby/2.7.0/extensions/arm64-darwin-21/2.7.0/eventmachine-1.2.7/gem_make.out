@@ -1,0 +1,16 @@
+current directory: /Users/aeong/Desktop/blog/bizbaeja.github.com/vendor/bundle/ruby/2.7.0/gems/eventmachine-1.2.7/ext/fastfilereader
+/Users/aeong/.rbenv/versions/2.7.6/bin/ruby -I /Users/aeong/.rbenv/versions/2.7.6/lib/ruby/2.7.0 -r ./siteconf20220804-92167-1mlo7e8.rb extconf.rb
+creating Makefile
+
+current directory: /Users/aeong/Desktop/blog/bizbaeja.github.com/vendor/bundle/ruby/2.7.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make "DESTDIR=" clean
+
+current directory: /Users/aeong/Desktop/blog/bizbaeja.github.com/vendor/bundle/ruby/2.7.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make "DESTDIR="
+compiling mapper.cpp
+compiling rubymain.cpp
+linking shared-object fastfilereaderext.bundle
+
+current directory: /Users/aeong/Desktop/blog/bizbaeja.github.com/vendor/bundle/ruby/2.7.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 fastfilereaderext.bundle ./.gem.20220804-92167-hhconp

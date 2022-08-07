@@ -1,0 +1,16 @@
+current directory: /Users/aeong/Desktop/blog/bizbaeja.github.com/vendor/bundle/ruby/2.7.0/gems/http_parser.rb-0.8.0/ext/ruby_http_parser
+/Users/aeong/.rbenv/versions/2.7.6/bin/ruby -I /Users/aeong/.rbenv/versions/2.7.6/lib/ruby/2.7.0 -r ./siteconf20220804-92167-1b9jdy9.rb extconf.rb
+creating Makefile
+
+current directory: /Users/aeong/Desktop/blog/bizbaeja.github.com/vendor/bundle/ruby/2.7.0/gems/http_parser.rb-0.8.0/ext/ruby_http_parser
+make "DESTDIR=" clean
+
+current directory: /Users/aeong/Desktop/blog/bizbaeja.github.com/vendor/bundle/ruby/2.7.0/gems/http_parser.rb-0.8.0/ext/ruby_http_parser
+make "DESTDIR="
+compiling ruby_http_parser.c
+compiling ryah_http_parser.c
+linking shared-object ruby_http_parser.bundle
+
+current directory: /Users/aeong/Desktop/blog/bizbaeja.github.com/vendor/bundle/ruby/2.7.0/gems/http_parser.rb-0.8.0/ext/ruby_http_parser
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 ruby_http_parser.bundle ./.gem.20220804-92167-rlbg4u
